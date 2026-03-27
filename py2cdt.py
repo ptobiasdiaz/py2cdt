@@ -303,13 +303,15 @@ def _write_cpc_block(
 # ── Utilidades de argparse ────────────────────────────────────────────────────
 
 def _parse_number(s: str) -> int:
-    """Acepta decimal, &HHHH, $HHHH o 0xHHHH."""
+    """Acepta decimal, &HHHH, $HHHH o 0xHHHH. Prefijo sin dígitos se trata como 0."""
     s = s.strip()
     if s.startswith(('&', '$')):
-        return int(s[1:], 16)
+        digits = s[1:]
+        return int(digits, 16) if digits else 0
     if s.lower().startswith('0x'):
-        return int(s[2:], 16)
-    return int(s)
+        digits = s[2:]
+        return int(digits, 16) if digits else 0
+    return int(s) if s else 0
 
 
 def _amsdos_checksum(data: bytes | bytearray) -> int:
