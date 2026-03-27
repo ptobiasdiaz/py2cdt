@@ -189,7 +189,7 @@ def _build_turbo_data(sync: int, payload: bytes) -> bytes:
         out.extend(chunk)
         crc = _crc_block(chunk)
         out.append((crc >> 8) ^ 0xFF)
-        out.append(crc ^ 0xFF)
+        out.append((crc & 0xFF) ^ 0xFF)
 
     out.extend(b'\xFF\xFF\xFF\xFF')   # trailer
     return bytes(out)
