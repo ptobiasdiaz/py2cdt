@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "2cdt"
+version = "1.0.0"
+description = "Converts binary files into Amstrad CPC CDT/TZX tape images"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.6"
+keywords = ["amstrad", "cpc", "cdt", "tzx", "retro", "tape"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: System :: Emulators",
+]
+
+[project.scripts]
+2cdt   = "py2cdt:main"
+py2cdt = "py2cdt:main"
+
+[tool.hatch.build.targets.wheel]
+# El módulo es un único script; hatch lo empaqueta como módulo de nivel superior
+include = ["py2cdt.py"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "py2cdt.py",
+    "README.md",
+    "LICENSE",
+    "src/",
+]
